@@ -44,7 +44,7 @@ THIRD_PARTY_APPS = [
 
 # Add in house project apps here
 PROJECT_APPS = [
-
+    'accounts',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + PROJECT_APPS
@@ -59,7 +59,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-# AUTH_USER_MODEL = "accounts.User"
+AUTH_USER_MODEL = "accounts.User"
 
 # # REST FRAMEWORK Config Starts
 # REST_FRAMEWORK = {
