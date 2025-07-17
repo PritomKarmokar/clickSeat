@@ -5,6 +5,9 @@ from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
 
 from accounts.serializers import SignupSerializer
+from applibs.logging_utils import get_logger
+
+logger = get_logger(__name__)
 
 class SignUpAPIView(APIView):
     serializer_class = SignupSerializer
@@ -21,9 +24,10 @@ class SignUpAPIView(APIView):
                 "data": serializer.data
             }
             return Response(data=response, status=status.HTTP_201_CREATED)
-
-        error_response = {
-            "message": "Signup Failed",
-            "data": serializer.errors
-        }
-        return Response(data=error_response, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            error_response = {
+                "message": "Signup Failed",
+                "data": serializer.errors
+            }
+            logger.error({"Serializer Error": repr(serializer.errors)})
+            return Response(data=error_response, status=status.HTTP_400_BAD_REQUEST)

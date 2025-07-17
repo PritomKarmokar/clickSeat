@@ -7,8 +7,10 @@ from rest_framework_simplejwt.tokens import RefreshToken
 
 from django.contrib.auth import authenticate
 
+from applibs.logging_utils import get_logger
 from accounts.serializers import LoginSerializer
 
+logger = get_logger(__name__)
 class LoginAPIView(APIView):
     serializer_class = LoginSerializer
     permission_classes = (AllowAny,)
@@ -38,9 +40,10 @@ class LoginAPIView(APIView):
                     "data": "Please provide valid email and password.",
                 }
                 return Response(data=response, status=status.HTTP_400_BAD_REQUEST)
-
-        error_response = {
-            "message": "Data Validation Error",
-            "data": serializer.errors,
-        }
-        return Response(data=error_response, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
+        else:
+            error_response = {
+                "message": "Data Validation Error",
+                "data": serializer.errors,
+            }
+            logger.error({"Serializer Error": repr(serializer.errors)})
+            return Response(data=error_response, status=status.HTTP_422_UNPROCESSABLE_ENTITY)

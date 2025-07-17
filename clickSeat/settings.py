@@ -204,3 +204,45 @@ CORS_ALLOW_HEADERS = [
     'x-requested-with',
 ]
 # CORS Config Ends
+
+# LOGGING #
+LOGGER_ROOT_NAME = env.str("LOGGER_ROOT_NAME", "clickSeat")
+LOG_LEVEL = env.str("LOG_LEVEL", "DEBUG")
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "console": {
+            "format": "[{asctime} | {levelname} | {cid} | {pathname}:{lineno}] {message}",
+            "style": "{",
+            "datefmt": "%Y-%m-%d %H:%M:%S",
+        },
+    },
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+            "formatter": "console",
+            "filters": ["correlation"],
+        },
+    },
+    "filters": {
+        "correlation": {"()": "cid.log.CidContextFilter"},
+    },
+    "loggers": {
+        "general": {
+            "handlers": ["console"],
+            "level": LOG_LEVEL,
+            "propagate": True,
+            "filters": ["correlation"],
+        },
+        LOGGER_ROOT_NAME: {
+            'handlers': ['console'],
+            'level': LOG_LEVEL,
+            'filters': ['correlation'],
+            'propagate': True,
+        },
+    }
+}
+
+# LOG SETUP END #
