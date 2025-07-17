@@ -64,10 +64,10 @@ AUTH_USER_MODEL = "accounts.User"
 # # REST FRAMEWORK Config Starts
 REST_FRAMEWORK = {
     "NON_FIELD_ERRORS_KEY": "errors",
-    # "DEFAULT_AUTHENTICATION_CLASSES": (
-    #     "rest_framework_simplejwt.authentication.JWTAuthentication",
-    # ),
-    # "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    ),
+    "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
 }
 # # REST FRAMEWORK Config Ends
 
