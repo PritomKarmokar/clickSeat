@@ -48,6 +48,7 @@ THIRD_PARTY_APPS = [
 # Add in house project apps here
 PROJECT_APPS = [
     'accounts',
+    'movies',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + PROJECT_APPS
